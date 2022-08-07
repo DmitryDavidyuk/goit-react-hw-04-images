@@ -19,7 +19,7 @@ export default function App() {
   const [images, setImages] = useState([]);
   const [status, setStatus] = useState(false);
   const [largeImage, setLargeImage] = useState('');
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
