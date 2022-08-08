@@ -12,8 +12,7 @@ export default function Modal({ onClose, children }) {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   const handleKeyDown = event => {
     if (event.code === 'Escape') {

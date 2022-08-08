@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { ReactComponent as CloseIcon } from './icons/close.svg';
@@ -26,22 +27,20 @@ export default function App() {
     if (!searchQuery) {
       return;
     }
-    setStatus(true);
+    const getImages = async () => {
+      try {
+        const { hits } = await fetchImages(searchQuery, currentPage);
+        setImages(prevImages => [...prevImages, ...hits]);
+      } catch (error) {
+        console.log('Smth wrong with App fetch', error);
+        setError(error);
+      } finally {
+        setStatus(false);
+      }
+    };
     getImages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setStatus(true);
   }, [searchQuery, currentPage]);
-
-  const getImages = async () => {
-    try {
-      const { hits } = await fetchImages(searchQuery, currentPage);
-      setImages(prevImages => [...prevImages, ...hits]);
-    } catch (error) {
-      console.log('Smth wrong with App fetch', error);
-      setError(error);
-    } finally {
-      setStatus(false);
-    }
-  };
 
   const loadMore = () => {
     setCurrentPage(prevPage => prevPage + 1);
